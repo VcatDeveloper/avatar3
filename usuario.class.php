@@ -36,8 +36,8 @@ class Usuario{
         try{
 
             $this->idUsuario = $this->crud->base64($dado,2);
-            $cst = $this->con->conectar()->prepare("SELECT `idUsuario`, `nome`, `email`, `data_cadastro` FROM `usuario` WHERE `idUsuario` = :idFunc; ");
-            $cst->bindParam(":idFunc", $this->idUsuario, PDO::PARAM_INT);
+            $cst = $this->con->conectar()->prepare("SELECT `idUsuario`, `nome`, `email`, `data_cadastro` FROM `usuario` WHERE `idUsuario` = :isUser; ");
+            $cst->bindParam(":idUser", $this->idUsuario, PDO::PARAM_INT);
             if($cst->execute()){
                 return $cst->fetch();
             }
@@ -79,8 +79,8 @@ public function atualizaUsuario($dado){
         $this->idUsuario = $this->crud->base64($dado['func'],2);
         $this->nome = $dado['nome'];
         $this->email = $dado['email'];
-        $cst = $this->con->conectar()->prepare("UPDATE `usuario` SET `nome` = :nome, `email` = :email WHERE `idUsuario` = :idFunc;");
-        $cst->bindParam(":idFunc", $this->idUsuario, PDO::PARAM_STR); 
+        $cst = $this->con->conectar()->prepare("UPDATE `usuario` SET `nome` = :nome, `email` = :email WHERE `idUsuario` = :idUser;");
+        $cst->bindParam(":idUser", $this->idUsuario, PDO::PARAM_STR); 
         $cst->bindParam(":nome", $this->nome, PDO::PARAM_STR);
         $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
         if($cst->execute()){
@@ -102,8 +102,8 @@ public function atualizaUsuario($dado){
         try{
 
             $this->idUsuario = $this->crud->base64($dado, 2);
-            $cst = $this->con->conectar()->prepare("DELETE FROM `usuario` WHERE `idUsuario` = :idFunc;");
-            $cst->bindParam(":idFunc", $this->idUsuario, PDO::PARAM_STR);
+            $cst = $this->con->conectar()->prepare("DELETE FROM `usuario` WHERE `idUsuario` = :idUser;");
+            $cst->bindParam(":idUser", $this->idUsuario, PDO::PARAM_STR);
             if($cst->execute()){
                 return 'ok';
             }else{
@@ -126,7 +126,7 @@ public function atualizaUsuario($dado){
                 $cst->bindParam(':senha', $this->senha, PDO::PARAM_STR);
                 $cst->execute();
                 if($cst->rowCount() == 0){
-                    header('location: login/?=error');
+                    header('location: login.php/?=error');
                 }
         
             else{
@@ -135,16 +135,29 @@ public function atualizaUsuario($dado){
                 $rst = $cst->fecth();
                 $_SESSION['logado'] = "sim";
                 $_SESSION['func'] = $rst['idUsuario'];
-                header("location: login/admin");
+                header("location: login.php/admin");
             }
             }catch(PDOException $e){
                 return 'Error: ' .$e->getMessage();
             }
         }
 
+   public function usuarioLogado($dado){
+      $cst = $this->con->conectar()->prepare("SELECT `idUsuario`, `nome`, `email` FROM `usuario` WHERE `idUsuario` = :idUser;");     
+      $cst->bindParam('idUser', $dado, PDO::PARAM_INT);
+      $cst->execute();
+      $rst = $cst->fetch();
+      $_SESSION['nome'] = $rst['nome'];
 
 
-    
+   }
+   
+   public function sairUsuario(){
+        session_destroy();
+        header('location: login.php');
+
+   }
+
 
     
 }
