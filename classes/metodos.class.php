@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD:classes/metodos.class.php
  //criação da classe contendo métodos dos sistema
 class Metodos{
+=======
+ //criação da classe contendo métodos do sistema
+class metodos{
+>>>>>>> d9aef25ddea7c34f2ee737b5a39346b79e48d57e:metodos.class.php
     //metodo para tratar carcateres do sistema
     public function tratarCaracter($valor,$tipo){
         switch($tipo){
