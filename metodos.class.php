@@ -1,6 +1,6 @@
 <?php
  //criação da classe contendo métodos dos sistema
-class metodos{
+class Metodos{
     //metodo para tratar carcateres do sistema
     public function tratarCaracter($valor,$tipo){
         switch($tipo){
@@ -39,7 +39,7 @@ class metodos{
 
    public function verificarCampo($dados){
 
-    return (isset($dados)?($dado):("");)
+    return (isset($dados))?($dados):("");
 
    }
 

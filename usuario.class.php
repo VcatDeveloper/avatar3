@@ -1,7 +1,7 @@
 <?php
 
 include_once "conexao.class.php";
-//include_once "Funcoes.class.php";
+ include_once "metodos.class.php";
 //criação da classe
 
 class Usuario{
@@ -17,7 +17,7 @@ class Usuario{
     //método construtor da classe usuário
     public function __construct(){
         $this->con = new Conexao();
-      //  $this->crud = new Funcoes();
+        $this->crud = new Metodos();
     }
 
     //metódo mágico
