@@ -1,5 +1,5 @@
 <?php
- //criação da classe contendo métodos dos sistema
+ //criação da classe contendo métodos do sistema
 class metodos{
     //metodo para tratar carcateres do sistema
     public function tratarCaracter($valor,$tipo){
